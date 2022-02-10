@@ -1,0 +1,63 @@
+@import '../Assets/Signin.scss';
+
+.Login-body{
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    border: 1px solid $white;
+    font-family: $font;
+    width: 350px;
+    height: 490px;
+    margin:3% auto;
+    padding: 25px 40px;
+    
+    &__logo{
+        text-align: $alignment;
+        font-size: 23px;
+    }
+
+    &__header{
+        font-size: 20px;
+        text-align: $alignment;
+        padding-top:3px;
+        font-weight: normal;
+        margin: 5px;
+    }
+    &__text{
+        text-align: $alignment;
+        font-size: 16px;
+        padding-top: 5px;
+        font-family: arial;
+        font-weight: lighter;
+        text-transform: capitalize;
+    }
+}
+.text1{
+    text-align: left;
+    color: $blue;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.text2{
+    padding-bottom: 4px;
+    padding-top: 30px;
+    color: $grey;
+    font-size: 16px;
+    line-height: 1.4286;
+}
+
+.text2 > a{
+    text-decoration: none;
+    border-radius: 4px;
+    color: $blue;
+    font-weight: 500;
+    letter-spacing: .25px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 20px 0;
+    font-size: .870rem;
+}
