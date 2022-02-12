@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans&family=Open+Sans&family=Roboto:wght@400&display=swap');
+
+.typography {
+  color: #5f6368;
+  padding-left: 10px;
+}
+
+.img {
+  height: 40px;
+  width: 40px;
+}
+
+.search {
+  width: 53%;
+  padding-left: 5%;
+}
+
+.icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  padding-left: 23%;
+}
+.profile {
+  display: flex;
+  justify-content: end;
+  width: 10%;
+}

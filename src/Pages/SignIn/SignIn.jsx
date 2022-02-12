@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import TextField from '@mui/material/TextField';
+import { TextField, FormControlLabel, Checkbox } from '@mui/material';
 import Button from '@mui/material/Button';
 import UserService from '../../Service/UserService';
+import { Link, Navigate } from 'react-router-dom';
 
 import './SignIn.scss';
 
@@ -52,6 +53,9 @@ export class SignIn extends Component {
             userService.SignIn(data)
             .then((res) => {
                 console.log(res);
+                this.setState({
+                    redirect: true
+                })
             }).catch((err) => {
                 console.log(err);
             })
@@ -68,42 +72,49 @@ export class SignIn extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Navigate to='/Home' />
+        }
         return (
-            <div class="Login-body">
-                <div class="Login-body__logo">
+            <div className="Login-body">
+                <div className="Login-body__logo">
                     <p>Fundoo-Note</p>
                 </div>
-                <h1 class="Login-body__header">Sign in</h1>
-                <span class="Login-body__text">Use your Fundoo account</span>
-                <formfield>
+                <h1 className="Login-body__header">Sign in</h1>
+                <span className="Login-body__text">Use your Fundoo account</span>
+                <div>
                         <TextField 
                         fullWidth label="Email or phone" 
                         name='email'
                         variant="outlined"
                         error={this.state.emailError}
                         helperText={this.state.emailError ? "Email is required" : ''}
-                        onchange={(event) => this.changeState(event)}
+                        onChange={(event) => this.changeState(event)}
                         size="small"
                         margin="normal"/>
-                    <p class="text1">Forgot email?</p>
+                    <Link className="text1" to='/ForgetPassword'>Forgot email?</Link>
                         <TextField 
-                        fullWidth label="Enter Password" 
+                        fullWidth label="Enter Password"
+                        type={this.state.type} 
                         name='password'
                         variant="outlined"
                         error={this.state.passwordError}
                         helperText={this.state.passwordError ? "Password is required" : ''}
-                        onchange={(event) => this.changeState(event)} 
+                        onChange={(event) => this.changeState(event)} 
                         size="small" 
                         margin="normal"/>
-                    <div class="text2">
+                        <div className='checkbox'>
+                            <FormControlLabel control={<Checkbox onChange={this.showPassword} />} label="Show Password" />
+                        </div>
+                    <div className="text2">
                         Not your computer? Use Guest mode to sign in privately.
                         <a href="">Learn more</a>
                     </div>
-                    <div class="buttons">
-                        <Button>Create account</Button>
+                    <div className="buttons">
+                        <Link to='/SignUp'>Create account</Link>
                         <Button onClick={this.next} variant="contained">Next</Button>
                     </div>
-                </formfield>
+                </div>
             </div>
         )
     }

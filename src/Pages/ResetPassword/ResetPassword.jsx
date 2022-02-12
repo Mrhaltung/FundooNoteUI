@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import TextField from '@mui/material/TextField';
+import { TextField, FormControlLabel, Checkbox } from '@mui/material';
 import Button from '@mui/material/Button';
 import UserService from '../../Service/UserService';
+import { Navigate } from 'react-router-dom';
 
 import './ResetPassword.scss';
 
@@ -44,14 +45,16 @@ export class ResetPassword extends Component {
     next = () => {
         let isValidated = this.validation();
         let data = {
-        "password": this.state.password,
-        "confirm": this.state.confirm
+        "password": this.state.password
         }
 
         if(!isValidated){
             userService.ResetPassword(data)
                 .then((res) => {
                 console.log(res.data);
+                this.setState({
+                    redirect: true
+                })
                 }).catch((err) => {
                 console.log(err);
                 })
@@ -68,6 +71,9 @@ export class ResetPassword extends Component {
     }
 
     render() {
+        if (this.state.redirect) {
+            return <Navigate to="/SignIn" />
+          }
         return(
             <div className="Reset-body">
                 <div className="Reset-body__logo">
@@ -77,6 +83,7 @@ export class ResetPassword extends Component {
                     <div className="Reset-body__logo__password">
                         <TextField 
                         fullWidth label="New Password" 
+                        type={this.state.type}
                         name='password'
                         id="password"
                         error={this.state.passwordError}
@@ -89,12 +96,16 @@ export class ResetPassword extends Component {
                         <TextField 
                         fullWidth label="Confirm Password"
                         name='confirm'
+                        type={this.state.type}
                         id="password"
                         error={this.state.confirmError}
                         helperText={this.state.confirmError ? "Confirm password is required" : ''}
                         onChange={(event) => this.changeState(event)}
                         size="small"
                         variant="outlined"/>
+                    </div>
+                    <div className='checkbox'>
+                      <FormControlLabel control={<Checkbox onChange={this.showPassword} />} label="Show Password" />
                     </div>
                     <div className="Reset-body__logo__button">
                         <Button onClick={this.next} variant="contained">Next</Button>

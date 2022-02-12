@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import UserService from '../../Service/UserService';
+import { Navigate } from 'react-router-dom';
 
 import './ForgetPassword.scss';
 
@@ -45,9 +46,7 @@ export class ForgetPassword extends Component {
         if (!isValidated) {
             userService.ForgetPassword(data)
                 .then((res) => {
-                localStorage.setItem("token", res.data.token)
                 console.log(res.data);
-                return res.data.token;
                 }).catch((err) => {
                 console.log(err);
                 })
@@ -68,7 +67,7 @@ export class ForgetPassword extends Component {
                     name='email'
                     error={this.state.emailError}
                     helperText={this.state.emailError ? "Email is required" : ''}
-                    onchange={(event) => this.changeState(event)}
+                    onChange={(event) => this.changeState(event)}
                     id="outlined-basic" 
                     fullWidth label="Email or phone" 
                     size="small" /></div>

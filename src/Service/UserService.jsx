@@ -2,7 +2,8 @@ import AxiosService from "./AxiosService";
 
 const axios = new AxiosService();
 
-let baseURL = 'https://localhost:44388/api/User';
+let UserURL = 'https://localhost:44388/api/User';
+let NoteURL = 'https://localhost:44388/api/Note';
 
 const header = {
     header : {
@@ -12,19 +13,23 @@ const header = {
 
 class UserService {
     SignUp(data){
-        return axios.post(`${baseURL}/Register`,data);
+        return axios.post(`${UserURL}/Register`,data);
     }
 
     SignIn(data){
-        return axios.post(`${baseURL}/login`,data)
+        return axios.post(`${UserURL}/Login`,data)
     }
 
-    ForgotPassword(data){
-        return axios.post(`${baseURL}/forgetPassword`,data)
+    ForgetPassword(data){
+        return axios.post(`${UserURL}/ForgetPassword`,data)
     }
 
     ResetPassword(data){
-        return axios.put(`${baseURL}/resetPassword`,data, header)
+        return axios.put(`${UserURL}/ResetPassword`,data, header)
+    }
+
+    TakeNote(data){
+        return axios.post(`${NoteURL}/AddNote`, data)
     }
 }
 

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
+import { Checkbox ,FormControlLabel } from '@mui/material';
 import UserService from '../../Service/UserService';
+import { Link, Navigate } from 'react-router-dom';
 
 import './SignUp.scss';
 
@@ -60,9 +61,12 @@ export class SignUp extends Component {
             "password": this.state.password
         }
         if (!isValidated) {
-            userService.Signup(data)
+            userService.SignUp(data)
             .then((res) => {
                 console.log(res.data);
+                this.setState({
+                    redirect: true
+                })
             }).catch((err) => {
                 console.log(err);
             })
@@ -79,7 +83,10 @@ export class SignUp extends Component {
     }
 
     render() {
-        return (
+        if(this.state.redirect){
+            return <Navigate to='/SignIn'/>
+        }
+        return ( 
             <div className="body">
                 <div className="body__main">
                     <div className="body__main__logo">
@@ -156,11 +163,11 @@ export class SignUp extends Component {
                     </div>
                     <div className="body__main__bellow">Use 8 or more characters with a mix of letters, numbers & symbols</div>
                     <div className="body__main__parent password">
-                    <Checkbox/> Show password
+                    <FormControlLabel control={<Checkbox onChange={this.showPassword} />} label="Show Password" />
                     </div>
                     <br />
                     <div className="body__main__parent button">
-                        <div className="email-option">Sign in instead</div>
+                        <Link className="email-option" to='/SignIn'>Sign in instead</Link>
                         <div className=""><Button variant="contained" onClick={this.next}>Next</Button></div>
                     </div>
                 </div>
